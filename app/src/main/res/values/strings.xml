@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ATM Finder</string>
+
+    <string-array name="bank">
+        <item>Select Bank</item>
+        <item>SBI</item>
+        <item>IDBI</item>
+        <item>ICICI</item>
+        <item>HDFC</item>
+        <item>Koatak Mahindra</item>
+    </string-array>
+
+</resources>

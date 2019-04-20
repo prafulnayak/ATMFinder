@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "975076463646",
+    "firebase_url": "https://atm-finder-a3770.firebaseio.com",
+    "project_id": "atm-finder-a3770",
+    "storage_bucket": "atm-finder-a3770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975076463646:android:ad01633babdf938d",
+        "android_client_info": {
+          "package_name": "org.sairaa.atmfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975076463646-huq3qbeelku660udk6m2hj9gvs7ovpbn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sairaa.atmfinder",
+            "certificate_hash": "4286262f76d9e98b7e9573a7d6b4bda17c2d7366"
+          }
+        },
+        {
+          "client_id": "975076463646-o1ar1c1eaamn6kni53dthvn7l2mc6ne0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQEmSP2pASqK9GL4CP34f00uBarx6yW-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975076463646-o1ar1c1eaamn6kni53dthvn7l2mc6ne0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
