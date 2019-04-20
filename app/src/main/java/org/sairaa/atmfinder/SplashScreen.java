@@ -13,6 +13,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
         final Intent intent = new Intent(this,LoginActivity.class);
+
+        //Splash will be dissapeared after 2 Sec
         new Handler().postDelayed(() -> {
             startActivity(intent);
             finish();

@@ -33,9 +33,9 @@ public class AtmViewModel extends AndroidViewModel {
     public LiveData<PagedList<AtmDetails>> getSavedAtmList() {
 
         atmListLiveData = null;
-        DataSource.Factory<Integer,AtmDetails> factory = savedH;//RoomDb.getsInstance(application).bookingDao().allSavedHotelDetails();
+        DataSource.Factory<Integer,AtmDetails> factory = savedH;
         //config the pagedList
-        //setPageSize(5) retrieves 5 sets of news object in single instance
+        //setPageSize(5) retrieves 5 sets of ATM object in single instance
         PagedList.Config pagConfig = new PagedList.Config.Builder().setPageSize(5).setEnablePlaceholders(false).build();
         LivePagedListBuilder<Integer, AtmDetails> pagedListBuilder = new LivePagedListBuilder(factory,pagConfig);
         atmListLiveData = pagedListBuilder.build();

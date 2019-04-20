@@ -29,15 +29,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
 
-        Intent intent = new Intent(this, AdminActivity.class);
+        Intent intent = new Intent(this, AdminUserActivity.class);
 
         switch (view.getId()){
             case R.id.admin:
+                // open Admin Part
                 intent.putExtra(adminUserT,adminT);
                 startActivity(intent);
                 break;
 
             case  R.id.user:
+                //open User Part
                 intent.putExtra(adminUserT,userT);
                 startActivity(intent);
                 break;

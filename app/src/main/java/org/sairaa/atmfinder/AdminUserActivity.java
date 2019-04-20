@@ -12,14 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.sairaa.atmfinder.Repository.AtmViewModel;
 import org.sairaa.atmfinder.Utils.Constants;
 import org.sairaa.atmfinder.Utils.RecyclerTouchListener;
 import org.sairaa.atmfinder.database.AtmDetails;
 
-public class AdminActivity extends AppCompatActivity implements View.OnClickListener, Constants {
+public class AdminUserActivity extends AppCompatActivity implements View.OnClickListener, Constants {
 
     private SearchView searchView;
     private RecyclerView recyclerView;
@@ -38,16 +37,18 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         recyclerView = findViewById(R.id.recyclerView_atm);
         addNewAtm = findViewById(R.id.add_new_atm);
         addNewAtm.setOnClickListener(this);
-
+        // View Model
         viewModel = ViewModelProviders.of(this).get(AtmViewModel.class);
 
         int userAdmin = getIntent().getIntExtra(adminUserT,0);
         switch (userAdmin){
             case adminT:
+                //if it is admin show add new atm button to add new one
                 addNewAtm.setVisibility(View.VISIBLE);
                 break;
 
             case userT:
+                //if it is user make add new atm button invisible
                 addNewAtm.setVisibility(View.GONE);
                 break;
         }
@@ -56,31 +57,31 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AtmAdapter(this,viewModel,userAdmin);
 
+        //Observe the data. Retrieve All ATM list from database
         viewModel.getSavedAtmList().observe(this, new Observer<PagedList<AtmDetails>>() {
             @Override
-            public void onChanged(@Nullable PagedList<AtmDetails> hotelLists) {
-                if(hotelLists != null){
-                    adapter.submitList(hotelLists);
+            public void onChanged(@Nullable PagedList<AtmDetails> atmLists) {
+                if(atmLists != null){
+                    adapter.submitList(atmLists);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
             }
         });
 
+        // Search String for Bank name and Location String
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                Toast.makeText(AdminActivity.this, "submit: "+query, Toast.LENGTH_SHORT).show();
-                subScribeUI(query);
+                // Update the UI with queried Data
+                UpdateUI(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                Toast.makeText(AdminActivity.this, "Text Change: "+newText, Toast.LENGTH_SHORT).show();
-                subScribeUI(newText);
+                // Update the UI with queried Data
+                UpdateUI(newText);
                 return true;
             }
         });
@@ -88,7 +89,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-
+                // find the ATM details and show it in EDIT Activity for Edit Or may be for viewing only
+                //Update for admin and viewing is for user only
+                //Not Implemented Yet
                 findItemAt(position);
             }
 
@@ -103,7 +106,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void subScribeUI(String query) {
+    private void UpdateUI(String query) {
 //        viewModel.getSearchAtmList(query);
 
         viewModel.getSearchAtmList(query).observe(this, new Observer<PagedList<AtmDetails>>() {

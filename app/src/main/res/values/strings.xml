@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">ATM Finder</string>
+    <string name="techlotion">Welcome To Techolution !</string>
+    <string name="admin">Admin</string>
+    <string name="user">User</string>
+    <string name="cash_deposit">Cash Deposite</string>
+    <string name="cash_withdraw">Cash Withdraw</string>
+    <string name="on_off">On/Off</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="atm_work">ATM Working Status</string>
+    <string name="add_new">Add ATM Details</string>
 
     <string-array name="bank">
         <item>Select Bank</item>
