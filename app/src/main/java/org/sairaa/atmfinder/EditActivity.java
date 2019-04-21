@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,9 +13,14 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.sairaa.atmfinder.Repository.AtmViewModel;
 import org.sairaa.atmfinder.Utils.Constants;
 import org.sairaa.atmfinder.database.AtmDetails;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditActivity extends AppCompatActivity implements View.OnClickListener, Constants {
 
@@ -28,7 +34,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     private AtmViewModel viewModel;
 
     private String bankName = null;
-    private int position = -1;
+    private int atmId = -1;
+    private int taskEditOrNew = 0;
+
+    AtmDetails atmDetails= null;
 
 
 
@@ -43,15 +52,21 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(this);
 
-        int taskEditOrNew = getIntent().getIntExtra(adminUserT,0);
-        position = getIntent().getIntExtra("position",-1);
+        taskEditOrNew = getIntent().getIntExtra(adminUserT,0);
+        atmId = getIntent().getIntExtra("atmId",-1);
+        String data = getIntent().getStringExtra("data");
+
+        if(data != null){
+             atmDetails = new Gson().fromJson(data, AtmDetails.class);
+        }
+
 
         switch (taskEditOrNew){
             case adminT:
-                editDataAndUpdate();
+                editDataAndUpdate(atmDetails);
                 break;
             case  userT:
-                onlyViewData();
+                onlyViewData(atmDetails);
                 break;
         }
 
@@ -71,14 +86,43 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void editDataAndUpdate() {
+    private void editDataAndUpdate(AtmDetails atmDetails) {
+        List<String> bankList = new ArrayList<>();
+        bankList.add(0,atmDetails.getBankName());
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,bankList);
+        bankSpinner.setAdapter(arrayAdapter);
+        bankSpinner.setEnabled(false);
+
+        latitude.setText(String.valueOf(atmDetails.getLatitude()));
+        latitude.setEnabled(false);
+        longitude.setText(String.valueOf(atmDetails.getLongitude()));
+        longitude.setEnabled(false);
+
+        if(atmDetails.getCashDeposite() == 1){
+            deposite.setChecked(true);
+        }else
+            deposite.setChecked(false);
+
+        if(atmDetails.getCashWithdraw() == 1){
+            withDraw.setChecked(true);
+        }else
+            withDraw.setChecked(false);
+
+        if(atmDetails.getWorkingStatus() == 1){
+            workingStatus.setChecked(true);
+        }else
+            workingStatus.setChecked(false);
+
+        submit.setText("Update");
+
+
 //        if(position>=0){
 //            AtmDetails details = viewModel.getItemAtLoc(position);
 //        }
 
     }
 
-    private void onlyViewData() {
+    private void onlyViewData(AtmDetails atmDetails) {
 
     }
 
@@ -96,9 +140,24 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.submit:
-                insertToDb();
+                if(taskEditOrNew == adminT && atmId == -1){
+                    insertToDb();
+                }else {
+                    updateToDb();
+                }
+
                 break;
         }
+    }
+
+    private void updateToDb() {
+        int depos = deposite.isChecked()?1:0;
+        int withD = withDraw.isChecked()?1:0;
+        int status = workingStatus.isChecked()?1:0;
+
+        viewModel.update(depos,withD,status,atmId);
+        Toast.makeText(this, "Updated ATM Detials", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void insertToDb() {

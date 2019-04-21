@@ -35,6 +35,12 @@ public class SavedAtmRepo {
         new insertAsyncTask(atmDao).execute(atm);
     }
 
+    public void update(int dip,int wdraw, int wStatus, int id){
+        new updateAsyncTask(atmDao).execute(dip,wdraw,wStatus,id);
+    }
+
+
+
     public AtmDetails getItemAtLoc(int position) {
 
         return null;
@@ -57,4 +63,18 @@ public class SavedAtmRepo {
     }
 
 
+    private static class updateAsyncTask extends AsyncTask<Integer,Void,Void>{
+
+        private ATMDao mAsyncTaskDao;
+
+        public updateAsyncTask(ATMDao atmDao) {
+            mAsyncTaskDao = atmDao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... data) {
+            mAsyncTaskDao.update(data[0],data[1],data[2],data[3]);
+            return null;
+        }
+    }
 }

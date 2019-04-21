@@ -22,7 +22,7 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
 
     private SearchView searchView;
     private RecyclerView recyclerView;
-    private Button addNewAtm;
+    private Button addNewAtm, openBankAcc;
 
     private AtmViewModel viewModel;
 
@@ -35,8 +35,13 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
 
         searchView = findViewById(R.id.search_material);
         recyclerView = findViewById(R.id.recyclerView_atm);
+
         addNewAtm = findViewById(R.id.add_new_atm);
         addNewAtm.setOnClickListener(this);
+
+        openBankAcc = findViewById(R.id.open_bank_acc);
+        openBankAcc.setOnClickListener(this);
+
         // View Model
         viewModel = ViewModelProviders.of(this).get(AtmViewModel.class);
 
@@ -134,6 +139,10 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
 
                 break;
+
+            case R.id.open_bank_acc:
+                Intent bankIntent = new Intent(this,BankAccountActivity.class);
+                startActivity(bankIntent);
 
         }
 

@@ -5,13 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import org.sairaa.atmfinder.Utils.ApiUtilsData;
 import org.sairaa.atmfinder.Utils.Constants;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Constants {
 
-    private Button admin;
-    private Button user;
+    private TextView admin, user;
+    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +22,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         admin = findViewById(R.id.admin);
-        admin.setOnClickListener(this);
-
         user = findViewById(R.id.user);
-        user.setOnClickListener(this);
+
+        login = findViewById(R.id.login);
+        login.setOnClickListener(this);
+
 
     }
 
@@ -32,17 +36,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this, AdminUserActivity.class);
 
         switch (view.getId()){
-            case R.id.admin:
+            case R.id.login:
+
+                if(!admin.getText().toString().trim().isEmpty()){
+                    if(!user.getText().toString().trim().isEmpty()){
+                        int typeUser = ApiUtilsData.checkUserOrAdmin(admin.getText().toString().trim(),user.getText().toString().trim());
+
+                            switch (typeUser){
+                                case adminT:
+                                    intent.putExtra(adminUserT,adminT);
+                                    startActivity(intent);
+                                    break;
+
+                                case userT:
+                                    intent.putExtra(adminUserT,userT);
+                                    startActivity(intent);
+                                    break;
+
+                                 default:
+                                     Toast.makeText(this, "Invalid UserName and Password", Toast.LENGTH_SHORT).show();
+                            }
+
+                    }else {
+                        Toast.makeText(this, "Fill password", Toast.LENGTH_SHORT).show();
+                    }
+
+                }else {
+                    Toast.makeText(this, "Fill User Name", Toast.LENGTH_SHORT).show();
+                }
                 // open Admin Part
-                intent.putExtra(adminUserT,adminT);
-                startActivity(intent);
+
                 break;
 
-            case  R.id.user:
-                //open User Part
-                intent.putExtra(adminUserT,userT);
-                startActivity(intent);
-                break;
+
         }
 
     }

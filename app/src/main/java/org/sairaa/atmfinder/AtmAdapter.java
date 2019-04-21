@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.sairaa.atmfinder.Repository.AtmViewModel;
 import org.sairaa.atmfinder.Utils.Constants;
 import org.sairaa.atmfinder.database.AtmDetails;
@@ -91,7 +93,8 @@ public class AtmAdapter extends PagedListAdapter<AtmDetails,AtmAdapter.MyViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(context,EditActivity.class);
                 intent.putExtra(adminUserT,userAdmin);
-                intent.putExtra("position",i);
+                intent.putExtra("atmId",atmDetails.getAtmId());
+                intent.putExtra("data",new Gson().toJson(atmDetails));
                 context.startActivity(intent);
             }
         });

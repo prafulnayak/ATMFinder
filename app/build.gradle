@@ -49,11 +49,15 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$view_model_version"
     implementation "android.arch.lifecycle:viewmodel:$view_model_version"
 
+    //ocr
+    implementation 'com.google.android.gms:play-services-vision:15.0.0'
+
     //adding annotation for room
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     annotationProcessor "android.arch.lifecycle:compiler:$room_version"
 
     implementation 'com.google.code.gson:gson:2.8.4'
+
 
 
     testImplementation 'junit:junit:4.12'

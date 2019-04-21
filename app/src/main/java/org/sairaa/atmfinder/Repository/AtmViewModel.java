@@ -66,6 +66,10 @@ public class AtmViewModel extends AndroidViewModel {
         mRepository.insert(atmDetail);
     }
 
+    public void update(int dip,int wdraw, int wStatus, int id){
+        mRepository.update(dip,wdraw,wStatus,id);
+    }
+
 
     public AtmDetails getItemAtLoc(int position) {
         return mRepository.getItemAtLoc(position);

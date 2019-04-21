@@ -11,6 +11,8 @@
     <string name="longitude">Longitude</string>
     <string name="atm_work">ATM Working Status</string>
     <string name="add_new">Add ATM Details</string>
+    <string name="userName">User Name</string>
+    <string name="password">Password</string>
 
     <string-array name="bank">
         <item>Select Bank</item>

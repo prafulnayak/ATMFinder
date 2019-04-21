@@ -19,4 +19,7 @@ public interface ATMDao {
     @Query("SELECT * FROM atmdetails WHERE (bankName LIKE :queryString) OR (others LIKE " +
             ":queryString) ORDER BY atmId DESC")
     DataSource.Factory<Integer, AtmDetails> allSearchedAtms(String queryString);
+
+    @Query("UPDATE AtmDetails SET cashDeposite = :dip, cashWithdraw = :wdraw, workingStatus = :wStatus WHERE atmId =:id ")
+    void update(int dip,int wdraw, int wStatus, int id);
 }

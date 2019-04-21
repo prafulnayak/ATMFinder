@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import org.sairaa.atmfinder.Utils.ApiUtilsData;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -13,6 +15,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
         final Intent intent = new Intent(this,LoginActivity.class);
+
+        ApiUtilsData.addUserAndAdmin();
 
         //Splash will be dissapeared after 2 Sec
         new Handler().postDelayed(() -> {
