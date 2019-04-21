@@ -50,11 +50,13 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
             case adminT:
                 //if it is admin show add new atm button to add new one
                 addNewAtm.setVisibility(View.VISIBLE);
+                openBankAcc.setVisibility(View.GONE);
                 break;
 
             case userT:
                 //if it is user make add new atm button invisible
                 addNewAtm.setVisibility(View.GONE);
+                openBankAcc.setVisibility(View.VISIBLE);
                 break;
         }
 
@@ -136,6 +138,7 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.add_new_atm:
                 Intent intent = new Intent(this,EditActivity.class);
+                intent.putExtra(adminUserT,adminT);
                 startActivity(intent);
 
                 break;

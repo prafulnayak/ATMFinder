@@ -184,7 +184,7 @@ public class BankAccountActivity extends AppCompatActivity implements View.OnCli
             capture.setVisibility(View.VISIBLE);
             capture.setText("Re-Capture");
 
-
+            accountDetail.setAddress(readS);
             setUpUi(accountDetail);
 
         }
@@ -286,6 +286,13 @@ public class BankAccountActivity extends AppCompatActivity implements View.OnCli
 
 
         @SuppressLint("MissingPermission") String mPhoneNumber = tMgr.getLine1Number();
-        Toast.makeText(this, ""+mPhoneNumber, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, ""+mPhoneNumber, Toast.LENGTH_SHORT).show();
+        if(accountDetail.getPhoneNo().equals(mPhoneNumber)){
+            ApiUtilsData.addAccount(accountDetail);
+            Toast.makeText(this, "Account Added Successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }else {
+            Toast.makeText(this, "Enter Your Existing Phone Number", Toast.LENGTH_SHORT).show();
+        }
     }
 }

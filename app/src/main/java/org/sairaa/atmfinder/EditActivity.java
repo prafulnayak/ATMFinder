@@ -1,6 +1,8 @@
 package org.sairaa.atmfinder;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -62,10 +64,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
 
         switch (taskEditOrNew){
-            case adminT:
+            case editT:
                 editDataAndUpdate(atmDetails);
                 break;
-            case  userT:
+            case  onlyV:
                 onlyViewData(atmDetails);
                 break;
         }
@@ -123,6 +125,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onlyViewData(AtmDetails atmDetails) {
+//        Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+//        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//        mapIntent.setPackage("com.google.android.apps.maps");
+//        startActivity(mapIntent);
 
     }
 
@@ -140,6 +146,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.submit:
+                Toast.makeText(this, ""+atmId, Toast.LENGTH_SHORT).show();
                 if(taskEditOrNew == adminT && atmId == -1){
                     insertToDb();
                 }else {

@@ -3,6 +3,7 @@ package org.sairaa.atmfinder;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.util.DiffUtil;
@@ -17,6 +18,8 @@ import com.google.gson.Gson;
 import org.sairaa.atmfinder.Repository.AtmViewModel;
 import org.sairaa.atmfinder.Utils.Constants;
 import org.sairaa.atmfinder.database.AtmDetails;
+
+import java.util.Locale;
 
 public class AtmAdapter extends PagedListAdapter<AtmDetails,AtmAdapter.MyViewHolder> implements Constants {
 
@@ -92,10 +95,25 @@ public class AtmAdapter extends PagedListAdapter<AtmDetails,AtmAdapter.MyViewHol
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,EditActivity.class);
-                intent.putExtra(adminUserT,userAdmin);
-                intent.putExtra("atmId",atmDetails.getAtmId());
-                intent.putExtra("data",new Gson().toJson(atmDetails));
-                context.startActivity(intent);
+                if(userAdmin== adminT){
+                    intent.putExtra(adminUserT,editT);
+                    intent.putExtra("atmId",atmDetails.getAtmId());
+                    intent.putExtra("data",new Gson().toJson(atmDetails));
+                    context.startActivity(intent);
+
+                } else{
+//                    Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", atmDetails.getLatitude(), atmDetails.getLongitude());
+                     //"geo:37.7749,-122.4192?q="
+                    Uri gmmIntentUri = Uri.parse(uri);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    context.startActivity(mapIntent);
+
+
+                }
+                    ;
+
             }
         });
 
