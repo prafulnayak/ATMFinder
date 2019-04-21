@@ -95,6 +95,10 @@ public class AtmAdapter extends PagedListAdapter<AtmDetails,AtmAdapter.MyViewHol
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,EditActivity.class);
+
+                // Check whether the user or Admin clicked on recycler view item.
+                // if admin allow him to edit the atm details
+                // if User allow him to navigate through map to find location.
                 if(userAdmin== adminT){
                     intent.putExtra(adminUserT,editT);
                     intent.putExtra("atmId",atmDetails.getAtmId());
@@ -102,15 +106,16 @@ public class AtmAdapter extends PagedListAdapter<AtmDetails,AtmAdapter.MyViewHol
                     context.startActivity(intent);
 
                 } else{
-//                    Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+                    // navigate map
+                    // we can get the direction on search by the below commented code.
+//                    Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("telengana"));
+                    //Since the location
                     String uri = String.format(Locale.ENGLISH, "geo:%f,%f", atmDetails.getLatitude(), atmDetails.getLongitude());
-                     //"geo:37.7749,-122.4192?q="
+//                    uri = uri.concat("?q=").concat(Uri.encode("Techolution"));
                     Uri gmmIntentUri = Uri.parse(uri);
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
                     context.startActivity(mapIntent);
-
-
                 }
                     ;
 

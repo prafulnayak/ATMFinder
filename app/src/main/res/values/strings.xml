@@ -13,6 +13,9 @@
     <string name="add_new">Add ATM Details</string>
     <string name="userName">User Name</string>
     <string name="password">Password</string>
+    <string name="invalid_user_pass">Invalid UserName and Password</string>
+    <string name="fill_pass">Fill password</string>
+    <string name="fill_user">Fill User Name</string>
 
     <string-array name="bank">
         <item>Select Bank</item>

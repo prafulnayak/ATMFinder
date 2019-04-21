@@ -52,6 +52,8 @@ dependencies {
     //ocr
     implementation 'com.google.android.gms:play-services-vision:15.0.0'
 
+
+
     //adding annotation for room
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     annotationProcessor "android.arch.lifecycle:compiler:$room_version"

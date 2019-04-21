@@ -1,6 +1,10 @@
 package org.sairaa.atmfinder;
 
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.biometrics.BiometricPrompt;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +15,7 @@ import android.widget.Toast;
 import org.sairaa.atmfinder.Utils.ApiUtilsData;
 import org.sairaa.atmfinder.Utils.Constants;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Constants {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Constants{
 
     private TextView admin, user;
     private Button login;
@@ -30,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+
     @Override
     public void onClick(View view) {
 
@@ -40,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if(!admin.getText().toString().trim().isEmpty()){
                     if(!user.getText().toString().trim().isEmpty()){
+                        // Check the Login Type. Is it Admin Or User
                         int typeUser = ApiUtilsData.checkUserOrAdmin(admin.getText().toString().trim(),user.getText().toString().trim());
 
                             switch (typeUser){
@@ -54,15 +61,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     break;
 
                                  default:
-                                     Toast.makeText(this, "Invalid UserName and Password", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(this, R.string.invalid_user_pass, Toast.LENGTH_SHORT).show();
                             }
 
                     }else {
-                        Toast.makeText(this, "Fill password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.fill_pass, Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-                    Toast.makeText(this, "Fill User Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.fill_user, Toast.LENGTH_SHORT).show();
                 }
                 // open Admin Part
 

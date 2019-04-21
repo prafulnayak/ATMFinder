@@ -50,12 +50,14 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
             case adminT:
                 //if it is admin show add new atm button to add new one
                 addNewAtm.setVisibility(View.VISIBLE);
+                // Disable open Account option
                 openBankAcc.setVisibility(View.GONE);
                 break;
 
             case userT:
                 //if it is user make add new atm button invisible
                 addNewAtm.setVisibility(View.GONE);
+                // Enable open Account option
                 openBankAcc.setVisibility(View.VISIBLE);
                 break;
         }
@@ -114,8 +116,8 @@ public class AdminUserActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void UpdateUI(String query) {
-//        viewModel.getSearchAtmList(query);
 
+        // Update the UI for search part
         viewModel.getSearchAtmList(query).observe(this, new Observer<PagedList<AtmDetails>>() {
             @Override
             public void onChanged(@Nullable PagedList<AtmDetails> atmLists) {
